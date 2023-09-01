@@ -29,7 +29,11 @@
 #endif
 
 // 切换单/双电机
+#if ODRIVE_ONE_BOARD == 2
+#define AXIS_COUNT (2) //双电机
+#else
 #define AXIS_COUNT (1) //单电机
+#endif
 
 // Total count of GPIOs, including encoder pins, CAN pins and a dummy GPIO0.
 // ODrive v3.4 and earlier don't have GPIOs 6, 7 and 8 but to keep the numbering
