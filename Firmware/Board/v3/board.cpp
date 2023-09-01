@@ -152,6 +152,7 @@ std::array<Axis, AXIS_COUNT> axes{{
         endstops[2], endstops[3], // min_endstop, max_endstop
         mechanical_brakes[1], // mechanical brake
     },
+
 }};
 
 
