@@ -8,29 +8,29 @@
 #include "communication/interface_can.hpp"
 
 Axis::Axis(int axis_num,
-           uint16_t default_step_gpio_pin,
-           uint16_t default_dir_gpio_pin,
-           osPriority thread_priority,
-           Encoder& encoder,
-           SensorlessEstimator& sensorless_estimator,
-           Controller& controller,
-           Motor& motor,
-           TrapezoidalTrajectory& trap,
-           Endstop& min_endstop,
-           Endstop& max_endstop,
-           MechanicalBrake& mechanical_brake)
+            uint16_t default_step_gpio_pin,
+            uint16_t default_dir_gpio_pin,
+            osPriority thread_priority,
+            Encoder& encoder,
+            SensorlessEstimator& sensorless_estimator,
+            Controller& controller,
+            Motor& motor,
+            TrapezoidalTrajectory& trap,
+            Endstop& min_endstop,
+            Endstop& max_endstop,
+            MechanicalBrake& mechanical_brake)
     : axis_num_(axis_num),
-      default_step_gpio_pin_(default_step_gpio_pin),
-      default_dir_gpio_pin_(default_dir_gpio_pin),
-      thread_priority_(thread_priority),
-      encoder_(encoder),
-      sensorless_estimator_(sensorless_estimator),
-      controller_(controller),
-      motor_(motor),
-      trap_traj_(trap),
-      min_endstop_(min_endstop),
-      max_endstop_(max_endstop),
-      mechanical_brake_(mechanical_brake)
+        default_step_gpio_pin_(default_step_gpio_pin),
+        default_dir_gpio_pin_(default_dir_gpio_pin),
+        thread_priority_(thread_priority),
+        encoder_(encoder),
+        sensorless_estimator_(sensorless_estimator),
+        controller_(controller),
+        motor_(motor),
+        trap_traj_(trap),
+        min_endstop_(min_endstop),
+        max_endstop_(max_endstop),
+        mechanical_brake_(mechanical_brake)
 {
     encoder_.axis_ = this;
     sensorless_estimator_.axis_ = this;
@@ -223,8 +223,8 @@ bool Axis::run_lockin_spin(const LockinConfig_t &lockin_config, bool remain_arme
 
         // Check if terminal condition is reached
         bool terminal_condition = (reached_target_vel && lockin_config.finish_on_vel)
-                               || (reached_target_dist && lockin_config.finish_on_distance)
-                               || (encoder_.index_found_ && lockin_config.finish_on_enc_idx);
+                                || (reached_target_dist && lockin_config.finish_on_distance)
+                                || (encoder_.index_found_ && lockin_config.finish_on_enc_idx);
         if (terminal_condition) {
             success = true;
             break;

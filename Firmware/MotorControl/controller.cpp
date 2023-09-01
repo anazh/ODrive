@@ -30,9 +30,9 @@ void Controller::set_error(Error error) {
 
 void Controller::move_to_pos(float goal_point) {
     axis_->trap_traj_.planTrapezoidal(goal_point, pos_setpoint_, vel_setpoint_,
-                                 axis_->trap_traj_.config_.vel_limit,
-                                 axis_->trap_traj_.config_.accel_limit,
-                                 axis_->trap_traj_.config_.decel_limit);
+                                    axis_->trap_traj_.config_.vel_limit,
+                                    axis_->trap_traj_.config_.accel_limit,
+                                    axis_->trap_traj_.config_.decel_limit);
     axis_->trap_traj_.t_ = 0.0f;
     trajectory_done_ = false;
 }

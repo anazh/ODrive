@@ -85,40 +85,40 @@ void StatusLedController::update() {
 
 static bool config_read_all() {
     bool success = board_read_config() &&
-           config_manager.read(&odrv.config_) &&
-           config_manager.read(&odrv.can_.config_);
+            config_manager.read(&odrv.config_) &&
+            config_manager.read(&odrv.can_.config_);
     for (size_t i = 0; (i < AXIS_COUNT) && success; ++i) {
         success = config_manager.read(&encoders[i].config_) &&
-                  config_manager.read(&axes[i].sensorless_estimator_.config_) &&
-                  config_manager.read(&axes[i].controller_.config_) &&
-                  config_manager.read(&axes[i].trap_traj_.config_) &&
-                  config_manager.read(&axes[i].min_endstop_.config_) &&
-                  config_manager.read(&axes[i].max_endstop_.config_) &&
-                  config_manager.read(&axes[i].mechanical_brake_.config_) &&
-                  config_manager.read(&motors[i].config_) &&
-                  config_manager.read(&motors[i].fet_thermistor_.config_) &&
-                  config_manager.read(&motors[i].motor_thermistor_.config_) &&
-                  config_manager.read(&axes[i].config_);
+                    config_manager.read(&axes[i].sensorless_estimator_.config_) &&
+                    config_manager.read(&axes[i].controller_.config_) &&
+                    config_manager.read(&axes[i].trap_traj_.config_) &&
+                    config_manager.read(&axes[i].min_endstop_.config_) &&
+                    config_manager.read(&axes[i].max_endstop_.config_) &&
+                    config_manager.read(&axes[i].mechanical_brake_.config_) &&
+                    config_manager.read(&motors[i].config_) &&
+                    config_manager.read(&motors[i].fet_thermistor_.config_) &&
+                    config_manager.read(&motors[i].motor_thermistor_.config_) &&
+                    config_manager.read(&axes[i].config_);
     }
     return success;
 }
 
 static bool config_write_all() {
     bool success = board_write_config() &&
-           config_manager.write(&odrv.config_) &&
-           config_manager.write(&odrv.can_.config_);
+            config_manager.write(&odrv.config_) &&
+            config_manager.write(&odrv.can_.config_);
     for (size_t i = 0; (i < AXIS_COUNT) && success; ++i) {
         success = config_manager.write(&encoders[i].config_) &&
-                  config_manager.write(&axes[i].sensorless_estimator_.config_) &&
-                  config_manager.write(&axes[i].controller_.config_) &&
-                  config_manager.write(&axes[i].trap_traj_.config_) &&
-                  config_manager.write(&axes[i].min_endstop_.config_) &&
-                  config_manager.write(&axes[i].max_endstop_.config_) &&
-                  config_manager.write(&axes[i].mechanical_brake_.config_) &&
-                  config_manager.write(&motors[i].config_) &&
-                  config_manager.write(&motors[i].fet_thermistor_.config_) &&
-                  config_manager.write(&motors[i].motor_thermistor_.config_) &&
-                  config_manager.write(&axes[i].config_);
+                    config_manager.write(&axes[i].sensorless_estimator_.config_) &&
+                    config_manager.write(&axes[i].controller_.config_) &&
+                    config_manager.write(&axes[i].trap_traj_.config_) &&
+                    config_manager.write(&axes[i].min_endstop_.config_) &&
+                    config_manager.write(&axes[i].max_endstop_.config_) &&
+                    config_manager.write(&axes[i].mechanical_brake_.config_) &&
+                    config_manager.write(&motors[i].config_) &&
+                    config_manager.write(&motors[i].fet_thermistor_.config_) &&
+                    config_manager.write(&motors[i].motor_thermistor_.config_) &&
+                    config_manager.write(&axes[i].config_);
     }
     return success;
 }
@@ -146,12 +146,12 @@ static bool config_apply_all() {
     bool success = odrv.can_.apply_config();
     for (size_t i = 0; (i < AXIS_COUNT) && success; ++i) {
         success = encoders[i].apply_config(motors[i].config_.motor_type)
-               && axes[i].controller_.apply_config()
-               && axes[i].min_endstop_.apply_config()
-               && axes[i].max_endstop_.apply_config()
-               && motors[i].apply_config()
-               && motors[i].motor_thermistor_.apply_config()
-               && axes[i].apply_config();
+                    && axes[i].controller_.apply_config()
+                    && axes[i].min_endstop_.apply_config()
+                    && axes[i].max_endstop_.apply_config()
+                    && motors[i].apply_config()
+                    && motors[i].motor_thermistor_.apply_config()
+                    && axes[i].apply_config();
     }
     return success;
 }
@@ -168,10 +168,10 @@ bool ODrive::save_configuration(void) {
 
         size_t config_size = 0;
         success = config_manager.prepare_store()
-               && config_write_all()
-               && config_manager.start_store(&config_size)
-               && config_write_all()
-               && config_manager.finish_store();
+                    && config_write_all()
+                    && config_manager.start_store(&config_size)
+                    && config_write_all()
+                    && config_manager.finish_store();
 
         // FIXME: during save_configuration we might miss some interrupts
         // because the CPU gets halted during a flash erase. Missing events
@@ -262,10 +262,12 @@ void vApplicationIdleHook(void) {
     if (odrv.system_stats_.fully_booted) {
         odrv.system_stats_.uptime = xTaskGetTickCount();
         odrv.system_stats_.min_heap_space = xPortGetMinimumEverFreeHeapSize();
-
-        uint32_t min_stack_space[AXIS_COUNT];
+        // TODEV
+        // uint32_t min_stack_space[AXIS_COUNT];
+        uint32_t min_stack_space[2];
         std::transform(axes.begin(), axes.end(), std::begin(min_stack_space), [](auto& axis) { return uxTaskGetStackHighWaterMark(axis.thread_id_) * sizeof(StackType_t); });
         odrv.system_stats_.max_stack_usage_axis = axes[0].stack_size_ - *std::min_element(std::begin(min_stack_space), std::end(min_stack_space));
+
         odrv.system_stats_.max_stack_usage_usb = stack_size_usb_thread - uxTaskGetStackHighWaterMark(usb_thread) * sizeof(StackType_t);
         odrv.system_stats_.max_stack_usage_uart = stack_size_uart_thread - uxTaskGetStackHighWaterMark(uart_thread) * sizeof(StackType_t);
         odrv.system_stats_.max_stack_usage_startup = stack_size_default_task - uxTaskGetStackHighWaterMark(defaultTaskHandle) * sizeof(StackType_t);
@@ -542,9 +544,11 @@ static void rtos_main(void*) {
     // Try to initialized gate drivers for fault-free startup.
     // If this does not succeed, a fault will be raised and the idle loop will
     // periodically attempt to reinit the gate driver.
+
     for(auto& axis: axes){
         axis.motor_.setup();
     }
+    // axes[0].motor_.setup();
 
     for(auto& axis: axes){
         axis.encoder_.setup();

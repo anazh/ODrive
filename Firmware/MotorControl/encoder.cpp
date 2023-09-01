@@ -4,8 +4,8 @@
 #include <bitset>
 
 Encoder::Encoder(TIM_HandleTypeDef* timer, Stm32Gpio index_gpio,
-                 Stm32Gpio hallA_gpio, Stm32Gpio hallB_gpio, Stm32Gpio hallC_gpio,
-                 Stm32SpiArbiter* spi_arbiter) :
+                    Stm32Gpio hallA_gpio, Stm32Gpio hallB_gpio, Stm32Gpio hallC_gpio,
+                    Stm32SpiArbiter* spi_arbiter) :
         timer_(timer), index_gpio_(index_gpio),
         hallA_gpio_(hallA_gpio), hallB_gpio_(hallB_gpio), hallC_gpio_(hallC_gpio),
         spi_arbiter_(spi_arbiter)
