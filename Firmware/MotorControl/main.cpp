@@ -262,7 +262,6 @@ void vApplicationIdleHook(void) {
     if (odrv.system_stats_.fully_booted) {
         odrv.system_stats_.uptime = xTaskGetTickCount();
         odrv.system_stats_.min_heap_space = xPortGetMinimumEverFreeHeapSize();
-        // TODEV
         uint32_t min_stack_space[AXIS_COUNT];
         std::transform(axes.begin(), axes.end(), std::begin(min_stack_space), [](auto& axis) { return uxTaskGetStackHighWaterMark(axis.thread_id_) * sizeof(StackType_t); });
         odrv.system_stats_.max_stack_usage_axis = axes[0].stack_size_ - *std::min_element(std::begin(min_stack_space), std::end(min_stack_space));
@@ -544,11 +543,9 @@ static void rtos_main(void*) {
     // If this does not succeed, a fault will be raised and the idle loop will
     // periodically attempt to reinit the gate driver.
     
-    // TODEV
     for(auto& axis: axes){
         axis.motor_.setup();
     }
-    // axes[0].motor_.setup();
 
     for(auto& axis: axes){
         axis.encoder_.setup();
