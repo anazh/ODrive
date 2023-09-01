@@ -28,7 +28,7 @@
 #define SHUNT_RESISTANCE (500e-6f)
 #endif
 
-// TODEV 
+// TODEV
 #define AXIS_COUNT (1)
 
 // Total count of GPIOs, including encoder pins, CAN pins and a dummy GPIO0.
@@ -91,9 +91,14 @@ using TOpAmp = Drv8301;
 #include <MotorControl/encoder.hpp>
 
 extern std::array<Axis, AXIS_COUNT> axes;
+// TODEV
 extern Motor motors[AXIS_COUNT];
+// TODEV
 extern OnboardThermistorCurrentLimiter fet_thermistors[AXIS_COUNT];
+// TODEV
 extern Encoder encoders[AXIS_COUNT];
+
+
 extern Stm32Gpio gpios[GPIO_COUNT];
 
 struct GpioFunction { int mode = 0; uint8_t alternate_function = 0xff; };

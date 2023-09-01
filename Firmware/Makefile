@@ -16,8 +16,8 @@ else
 endif
 
 ifneq (,$(findstring v3.,$(CONFIG_BOARD_VERSION)))
-  OPENOCD := openocd -f interface/stlink-v2.cfg $(PROGRAMMER_CMD) -f target/stm32f4x.cfg -c init
-  GDB := arm-none-eabi-gdb --ex 'target extended-remote | openocd -f "interface/stlink-v2.cfg" -f "target/stm32f4x.cfg" -c "gdb_port pipe; log_output openocd.log"' --ex 'monitor reset halt'
+  OPENOCD := openocd -f interface/stlink.cfg $(PROGRAMMER_CMD) -f target/stm32f4x.cfg -c init
+  GDB := arm-none-eabi-gdb --ex 'target extended-remote | openocd -f "interface/stlink.cfg" -f "target/stm32f4x.cfg" -c "gdb_port pipe; log_output openocd.log"' --ex 'monitor reset halt'
 else ifneq (,$(findstring v4.,$(CONFIG_BOARD_VERSION)))
   OPENOCD := openocd -f interface/stlink.cfg $(PROGRAMMER_CMD) -f target/stm32f7x.cfg -c 'reset_config none separate' -c init
   GDB := arm-none-eabi-gdb --ex 'target extended-remote | openocd -f "interface/stlink-v2.cfg" -f "target/stm32f7x.cfg" -c "reset_config none separate" -c "gdb_port pipe; log_output openocd.log"' --ex 'monitor reset halt'
@@ -63,7 +63,7 @@ libfibre-all:
 clean:
 	-rm -fR .dep $(BUILD_DIR)
 
-flash-stlink2: all
+flash-stlink2: 
 	$(OPENOCD) \
 		-c 'reset halt' \
 		-c 'flash write_image erase $(FIRMWARE)' \
