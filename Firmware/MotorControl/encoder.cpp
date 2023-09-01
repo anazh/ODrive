@@ -596,8 +596,8 @@ void Encoder::abs_spi_cb(bool success) {
         } break;
 
         default: {
-           set_error(ERROR_UNSUPPORTED_ENCODER_MODE);
-           goto done;
+            set_error(ERROR_UNSUPPORTED_ENCODER_MODE);
+            goto done;
         } break;
     }
 
@@ -613,13 +613,7 @@ done:
 
 void Encoder::abs_spi_cs_pin_init(){
     // Decode and init cs pin
-#if HW_VERSION_MAJOR == 4
-    if (mode_ == MODE_SPI_ABS_MA732)
-        abs_spi_cs_gpio_ = {GPIOA, GPIO_PIN_15};
-    else
-#else
     abs_spi_cs_gpio_ = get_gpio(config_.abs_spi_cs_gpio_pin);
-#endif
     abs_spi_cs_gpio_.config(GPIO_MODE_OUTPUT_PP, GPIO_PULLUP);
 
     // Write pin high

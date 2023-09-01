@@ -82,13 +82,7 @@ void Stm32UsbTxStream::start_write(cbufptr_t buffer, TransferHandle* handle, Cal
     tx_end_ = buffer.end();
 
     if (
-#if HW_VERSION_MAJOR == 3 // TODO: remove preprocessor switch
         CDC_Transmit_FS
-#elif HW_VERSION_MAJOR == 4
-        CDC_Transmit_HS
-#else
-#error "not supported"
-#endif
         (const_cast<uint8_t*>(buffer.begin()), buffer.size(), endpoint_num_) != USBD_OK) {
         tx_end_ = nullptr;
         completer_.invoke_and_clear({kStreamError, buffer.begin()});
