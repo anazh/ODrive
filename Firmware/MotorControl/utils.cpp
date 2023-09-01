@@ -7,6 +7,34 @@
 // as per the magnitude invariant clarke transform
 // The magnitude of the alpha-beta vector may not be larger than sqrt(3)/2
 // Returns true on success, and false if the input was out of range
+// 根据 alpha 和 beta 计算上升沿时序（0.0 - 1.0）的函数。此计算基于幅值不变克拉克变换（magnitude invariant clarke transform）。
+// alpha-beta 向量的幅值不能大于 sqrt(3)/2。如果输入超出范围，则返回 false；否则返回 true。
+// 该函数的目的是根据 alpha 和 beta 值计算出 tA、tB 和 tC 的值，并进行范围检查，确保结果在有效范围内。
+// 它使用了不同的计算公式，这些公式根据 alpha 和 beta 属于不同的扇区（Sextant），选择不同的计算方式。
+
+// 上升沿时序（0.0 - 1.0）是指在电子电路或控制系统中，以时间为轴的一个时间段，在这个时间段内电信号由低电平（0）逐渐过渡到高电平（1）。
+// 这个时间段通常用单位时间来表示，单位时间可以是秒、毫秒或任何其他时间单位。
+// 上升沿时序（0.0 - 1.0）用来表示三个分量 tA、tB 和 tC 的值。这些值表示在一个固定的时间段内，相对于一个基准时间，电信号从低电平过渡到高电平的时间比例。
+// 这些比例值范围在 0.0 到 1.0 之间，其中 0.0 表示信号在整个时间段内都处于低电平，而 1.0 表示信号在整个时间段内都处于高电平。
+// 因此，上升沿时序（0.0 - 1.0）是用来描述一个信号在一个时间段内从低电平逐渐过渡到高电平的过程中，各个时间点的相对比例。
+/*
+幅值不变克拉克变换（Magnitude Invariant Clarke Transform）是一种数学变换，常用于三相交流电功率和电流的控制和分析。
+它的主要目的是将三个相互垂直的交流分量转换为两个直流分量和一个零序分量，同时保持向量的幅值不变。
+克拉克变换是一种将三相交流信号变换为两相信号的方法。克拉克变换可以通过将三个相互垂直的相量（a、b、c）映射到一个二维平面上来实现。
+在克拉克变换中，通常选择相量 (alpha, beta) 表示。
+幅值不变的特性意味着经过幅值不变变换后，虽然相量的方向发生了改变，但长度（幅值）保持不变。
+这在控制系统中很重要，因为通过保持向量长度不变，可以确保按比例调节两个相量在控制过程中的贡献。
+具体而言，幅值不变克拉克变换的计算过程如下：
+从三相信号 (a, b, c) 计算出直流分量和零序分量：
+
+直流分量 d = (2/3) * a - (1/3) * b - (1/3) * c
+零序分量 q = (1/√3) * b - (1/√3) * c
+
+计算 alpha 和 beta 值：
+alpha = d
+beta = (2/√3) * a + (1/√3) * b + (1/√3) * c
+幅值不变克拉克变换的结果是 alpha 和 beta，它们表示了原始三相信号 (a, b, c) 转换后的等效二维信号。这些二维信号可以用于控制和分析三相交流电功率和电流，在电力系统和电机控制中具有广泛的应用。
+*/
 std::tuple<float, float, float, bool> SVM(float alpha, float beta) {
     float tA, tB, tC;
     int Sextant;
@@ -117,8 +145,8 @@ std::tuple<float, float, float, bool> SVM(float alpha, float beta) {
 
     bool result_valid =
             tA >= 0.0f && tA <= 1.0f
-         && tB >= 0.0f && tB <= 1.0f
-         && tC >= 0.0f && tC <= 1.0f;
+            && tB >= 0.0f && tB <= 1.0f
+            && tC >= 0.0f && tC <= 1.0f;
     return {tA, tB, tC, result_valid};
 }
 
