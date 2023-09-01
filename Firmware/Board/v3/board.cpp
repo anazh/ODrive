@@ -379,6 +379,7 @@ static bool fetch_and_reset_adcs(
             *current0 = {-*phB - *phC, *phB, *phC};
         }
     }
+#if ODRIVE_ONE_BOARD == 2
     if (AXIS_COUNT == 2 && m1_gate_driver.is_ready()) {
         std::optional<float> phB = motors[1].phase_current_from_adcval(ADC2->DR);
         std::optional<float> phC = motors[1].phase_current_from_adcval(ADC3->DR);
@@ -386,6 +387,7 @@ static bool fetch_and_reset_adcs(
             *current1 = {-*phB - *phC, *phB, *phC};
         }
     }
+#endif
     
     ADC1->SR = ~(ADC_SR_JEOC);
     ADC2->SR = ~(ADC_SR_EOC | ADC_SR_JEOC | ADC_SR_OVR);

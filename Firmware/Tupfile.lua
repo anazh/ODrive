@@ -138,42 +138,42 @@ stm32f4xx_hal_pkg = {
     cflags = {'-DARM_MATH_CM4', '-mcpu=cortex-m4', '-mfpu=fpv4-sp-d16', '-DFPU_FPV4'}
 }
 
-stm32f7xx_hal_pkg = {
-    root = 'Private/ThirdParty/STM32F7xx_HAL_Driver',
-    include_dirs = {
-        'Inc',
-    },
-    code_files = {
-        'Src/stm32f7xx_hal.c',
-        'Src/stm32f7xx_hal_adc.c',
-        'Src/stm32f7xx_hal_adc_ex.c',
-        'Src/stm32f7xx_hal_can.c',
-        'Src/stm32f7xx_hal_cortex.c',
-        'Src/stm32f7xx_hal_dma.c',
-        'Src/stm32f7xx_hal_dma_ex.c',
-        'Src/stm32f7xx_hal_exti.c',
-        'Src/stm32f7xx_hal_flash.c',
-        'Src/stm32f7xx_hal_flash_ex.c',
-        'Src/stm32f7xx_hal_gpio.c',
-        'Src/stm32f7xx_hal_i2c.c',
-        'Src/stm32f7xx_hal_i2c_ex.c',
-        'Src/stm32f7xx_hal_i2s.c',
-        'Src/stm32f7xx_hal_pcd.c',
-        'Src/stm32f7xx_hal_pcd_ex.c',
-        'Src/stm32f7xx_hal_pwr.c',
-        'Src/stm32f7xx_hal_pwr_ex.c',
-        'Src/stm32f7xx_hal_rcc.c',
-        'Src/stm32f7xx_hal_rcc_ex.c',
-        'Src/stm32f7xx_hal_spi.c',
-        'Src/stm32f7xx_hal_spi_ex.c',
-        'Src/stm32f7xx_hal_tim.c',
-        'Src/stm32f7xx_hal_tim_ex.c',
-        'Src/stm32f7xx_hal_uart.c',
-        'Src/stm32f7xx_hal_uart_ex.c',
-        'Src/stm32f7xx_ll_usb.c',
-    },
-    cflags = {'-DARM_MATH_CM7', '-mcpu=cortex-m7', '-mfpu=fpv5-sp-d16'}
-}
+-- stm32f7xx_hal_pkg = {
+--     root = 'Private/ThirdParty/STM32F7xx_HAL_Driver',
+--     include_dirs = {
+--         'Inc',
+--     },
+--     code_files = {
+--         'Src/stm32f7xx_hal.c',
+--         'Src/stm32f7xx_hal_adc.c',
+--         'Src/stm32f7xx_hal_adc_ex.c',
+--         'Src/stm32f7xx_hal_can.c',
+--         'Src/stm32f7xx_hal_cortex.c',
+--         'Src/stm32f7xx_hal_dma.c',
+--         'Src/stm32f7xx_hal_dma_ex.c',
+--         'Src/stm32f7xx_hal_exti.c',
+--         'Src/stm32f7xx_hal_flash.c',
+--         'Src/stm32f7xx_hal_flash_ex.c',
+--         'Src/stm32f7xx_hal_gpio.c',
+--         'Src/stm32f7xx_hal_i2c.c',
+--         'Src/stm32f7xx_hal_i2c_ex.c',
+--         'Src/stm32f7xx_hal_i2s.c',
+--         'Src/stm32f7xx_hal_pcd.c',
+--         'Src/stm32f7xx_hal_pcd_ex.c',
+--         'Src/stm32f7xx_hal_pwr.c',
+--         'Src/stm32f7xx_hal_pwr_ex.c',
+--         'Src/stm32f7xx_hal_rcc.c',
+--         'Src/stm32f7xx_hal_rcc_ex.c',
+--         'Src/stm32f7xx_hal_spi.c',
+--         'Src/stm32f7xx_hal_spi_ex.c',
+--         'Src/stm32f7xx_hal_tim.c',
+--         'Src/stm32f7xx_hal_tim_ex.c',
+--         'Src/stm32f7xx_hal_uart.c',
+--         'Src/stm32f7xx_hal_uart_ex.c',
+--         'Src/stm32f7xx_ll_usb.c',
+--     },
+--     cflags = {'-DARM_MATH_CM7', '-mcpu=cortex-m7', '-mfpu=fpv5-sp-d16'}
+-- }
 
 freertos_pkg = {
     root = 'ThirdParty/FreeRTOS',
@@ -269,47 +269,47 @@ board_v3 = {
     }
 }
 
-board_v4 = {
-    root = 'Private/v4',
-    root_interface = 'ODrive4',
-    include = {stm32f7xx_hal_pkg, crypto_pkg},
-    include_dirs = {
-        '..',
-        'Inc',
-        '../../ThirdParty/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1',
-    },
-    code_files = {
-        'startup_stm32f722xx.s',
-        '../../ThirdParty/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1/port.c',
-        '../Drivers/DRV8353/drv8353.cpp',
-        '../Drivers/status_led.cpp',
-        'board.cpp',
-        'Src/main.c',
-        'Src/gpio.c',
-        'Src/adc.c',
-        'Src/can.c',
-        'Src/dma.c',
-        'Src/freertos.c',
-        'Src/spi.c',
-        'Src/tim.c',
-        'Src/stm32f7xx_it.c',
-        'Src/stm32f7xx_hal_msp.c',
-        'Src/stm32f7xx_hal_timebase_tim.c',
-        'Src/system_stm32f7xx.c',
-        'Src/i2s.c',
-        'Src/usart.c',
-        'Src/usb_device.c',
-        'Src/usbd_conf.c',
-        'Src/usbd_desc.c',
-        'Src/usbd_cdc_if.c',
-        'Src/i2c.c',
-    },
-    cflags = {'-DSTM32F722xx', '-DHW_VERSION_MAJOR=4'},
-    ldflags = {
-        '-TPrivate/v4/STM32F722RETx_FLASH.ld',
-        '-larm_cortexM7lfsp_math',
-    }
-}
+-- board_v4 = {
+--     root = 'Private/v4',
+--     root_interface = 'ODrive4',
+--     include = {stm32f7xx_hal_pkg, crypto_pkg},
+--     include_dirs = {
+--         '..',
+--         'Inc',
+--         '../../ThirdParty/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1',
+--     },
+--     code_files = {
+--         'startup_stm32f722xx.s',
+--         '../../ThirdParty/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1/port.c',
+--         '../Drivers/DRV8353/drv8353.cpp',
+--         '../Drivers/status_led.cpp',
+--         'board.cpp',
+--         'Src/main.c',
+--         'Src/gpio.c',
+--         'Src/adc.c',
+--         'Src/can.c',
+--         'Src/dma.c',
+--         'Src/freertos.c',
+--         'Src/spi.c',
+--         'Src/tim.c',
+--         'Src/stm32f7xx_it.c',
+--         'Src/stm32f7xx_hal_msp.c',
+--         'Src/stm32f7xx_hal_timebase_tim.c',
+--         'Src/system_stm32f7xx.c',
+--         'Src/i2s.c',
+--         'Src/usart.c',
+--         'Src/usb_device.c',
+--         'Src/usbd_conf.c',
+--         'Src/usbd_desc.c',
+--         'Src/usbd_cdc_if.c',
+--         'Src/i2c.c',
+--     },
+--     cflags = {'-DSTM32F722xx', '-DHW_VERSION_MAJOR=4'},
+--     ldflags = {
+--         '-TPrivate/v4/STM32F722RETx_FLASH.ld',
+--         '-larm_cortexM7lfsp_math',
+--     }
+-- }
 
 boards = {
     ["v3.6-56V"] = {include={board_v3}, cflags={"-DHW_VERSION_MINOR=6 -DHW_VERSION_VOLTAGE=56  -DODRIVE_ONE_BOARD=2"}},
