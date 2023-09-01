@@ -312,17 +312,7 @@ board_v4 = {
 }
 
 boards = {
-    ["v3.1"] = {include={board_v3}, cflags={"-DHW_VERSION_MINOR=1 -DHW_VERSION_VOLTAGE=24"}},
-    ["v3.2"] = {include={board_v3}, cflags={"-DHW_VERSION_MINOR=2 -DHW_VERSION_VOLTAGE=24"}},
-    ["v3.3"] = {include={board_v3}, cflags={"-DHW_VERSION_MINOR=3 -DHW_VERSION_VOLTAGE=24"}},
-    ["v3.4-24V"] = {include={board_v3}, cflags={"-DHW_VERSION_MINOR=4 -DHW_VERSION_VOLTAGE=24"}},
-    ["v3.4-48V"] = {include={board_v3}, cflags={"-DHW_VERSION_MINOR=4 -DHW_VERSION_VOLTAGE=48"}},
-    ["v3.5-24V"] = {include={board_v3}, cflags={"-DHW_VERSION_MINOR=5 -DHW_VERSION_VOLTAGE=24"}},
-    ["v3.5-48V"] = {include={board_v3}, cflags={"-DHW_VERSION_MINOR=5 -DHW_VERSION_VOLTAGE=48"}},
-    ["v3.6-24V"] = {include={board_v3}, cflags={"-DHW_VERSION_MINOR=6 -DHW_VERSION_VOLTAGE=24"}},
     ["v3.6-56V"] = {include={board_v3}, cflags={"-DHW_VERSION_MINOR=6 -DHW_VERSION_VOLTAGE=56  -DODRIVE_ONE_BOARD=2"}},
-    ["v4.0-56V"] = {include={board_v4}, cflags={"-DHW_VERSION_MINOR=0 -DHW_VERSION_VOLTAGE=56"}},
-    ["v4.1-58V"] = {include={board_v4}, cflags={"-DHW_VERSION_MINOR=1 -DHW_VERSION_VOLTAGE=58"}},
     ["v3.6-56V-one"] = {include={board_v3}, cflags={"-DHW_VERSION_MINOR=6 -DHW_VERSION_VOLTAGE=56 -DODRIVE_ONE_BOARD=1"}}, -- 单电机
 }
 

@@ -22,12 +22,7 @@
 
 #include <Drivers/STM32/stm32_system.h>
 
-#if HW_VERSION_MINOR <= 3
-#define SHUNT_RESISTANCE (675e-6f)
-#else
 #define SHUNT_RESISTANCE (500e-6f)
-#endif
-
 // 切换单/双电机
 #if ODRIVE_ONE_BOARD == 2
 #define AXIS_COUNT (2) //双电机

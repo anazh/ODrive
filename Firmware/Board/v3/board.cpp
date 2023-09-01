@@ -42,13 +42,14 @@ Drv8301 m0_gate_driver{
     {}, // EN pin (shared between both motors, therefore we actuate it outside of the drv8301 driver)
     {nFAULT_GPIO_Port, nFAULT_Pin} // nFAULT pin (shared between both motors)
 };
-
+#if ODRIVE_ONE_BOARD == 2
 Drv8301 m1_gate_driver{
     &spi3_arbiter,
     {M1_nCS_GPIO_Port, M1_nCS_Pin}, // nCS
     {}, // EN pin (shared between both motors, therefore we actuate it outside of the drv8301 driver)
     {nFAULT_GPIO_Port, nFAULT_Pin} // nFAULT pin (shared between both motors)
 };
+#endif
 
 const float fet_thermistor_poly_coeffs[] =
     {363.93910201f, -462.15369634f, 307.55129571f, -27.72569531f};
@@ -156,53 +157,6 @@ std::array<Axis, AXIS_COUNT> axes{{
     #endif
 }};
 
-
-
-#if (HW_VERSION_MINOR == 1) || (HW_VERSION_MINOR == 2)
-Stm32Gpio gpios[] = {
-    {nullptr, 0}, // dummy GPIO0 so that PCB labels and software numbers match
-
-    {GPIOB, GPIO_PIN_2}, // GPIO1
-    {GPIOA, GPIO_PIN_5}, // GPIO2
-    {GPIOA, GPIO_PIN_4}, // GPIO3
-    {GPIOA, GPIO_PIN_3}, // GPIO4
-    {nullptr, 0}, // GPIO5 (doesn't exist on this board)
-    {nullptr, 0}, // GPIO6 (doesn't exist on this board)
-    {nullptr, 0}, // GPIO7 (doesn't exist on this board)
-    {nullptr, 0}, // GPIO8 (doesn't exist on this board)
-
-    {GPIOB, GPIO_PIN_4}, // ENC0_A
-    {GPIOB, GPIO_PIN_5}, // ENC0_B
-    {GPIOA, GPIO_PIN_15}, // ENC0_Z
-    {GPIOB, GPIO_PIN_6}, // ENC1_A
-    {GPIOB, GPIO_PIN_7}, // ENC1_B
-    {GPIOB, GPIO_PIN_3}, // ENC1_Z
-    {GPIOB, GPIO_PIN_8}, // CAN_R
-    {GPIOB, GPIO_PIN_9}, // CAN_D
-};
-#elif (HW_VERSION_MINOR == 3) || (HW_VERSION_MINOR == 4)
-Stm32Gpio gpios[] = {
-    {nullptr, 0}, // dummy GPIO0 so that PCB labels and software numbers match
-
-    {GPIOA, GPIO_PIN_0}, // GPIO1
-    {GPIOA, GPIO_PIN_1}, // GPIO2
-    {GPIOA, GPIO_PIN_2}, // GPIO3
-    {GPIOA, GPIO_PIN_3}, // GPIO4
-    {GPIOB, GPIO_PIN_2}, // GPIO5
-    {nullptr, 0}, // GPIO6 (doesn't exist on this board)
-    {nullptr, 0}, // GPIO7 (doesn't exist on this board)
-    {nullptr, 0}, // GPIO8 (doesn't exist on this board)
-
-    {GPIOB, GPIO_PIN_4}, // ENC0_A
-    {GPIOB, GPIO_PIN_5}, // ENC0_B
-    {GPIOA, GPIO_PIN_15}, // ENC0_Z
-    {GPIOB, GPIO_PIN_6}, // ENC1_A
-    {GPIOB, GPIO_PIN_7}, // ENC1_B
-    {GPIOB, GPIO_PIN_3}, // ENC1_Z
-    {GPIOB, GPIO_PIN_8}, // CAN_R
-    {GPIOB, GPIO_PIN_9}, // CAN_D
-};
-#elif (HW_VERSION_MINOR == 5) || (HW_VERSION_MINOR == 6)
 Stm32Gpio gpios[GPIO_COUNT] = {
     {nullptr, 0}, // dummy GPIO0 so that PCB labels and software numbers match
 
@@ -224,22 +178,14 @@ Stm32Gpio gpios[GPIO_COUNT] = {
     {GPIOB, GPIO_PIN_8}, // CAN_R
     {GPIOB, GPIO_PIN_9}, // CAN_D
 };
-#else
-#error "unknown GPIOs"
-#endif
+
 
 std::array<GpioFunction, 3> alternate_functions[GPIO_COUNT] = {
     /* GPIO0 (inexistent): */ {{}},
 
-#if HW_VERSION_MINOR >= 3
     /* GPIO1: */ {{{ODrive::GPIO_MODE_UART_A, GPIO_AF8_UART4}, {ODrive::GPIO_MODE_PWM, GPIO_AF2_TIM5}}},
     /* GPIO2: */ {{{ODrive::GPIO_MODE_UART_A, GPIO_AF8_UART4}, {ODrive::GPIO_MODE_PWM, GPIO_AF2_TIM5}}},
     /* GPIO3: */ {{{ODrive::GPIO_MODE_UART_B, GPIO_AF7_USART2}, {ODrive::GPIO_MODE_PWM, GPIO_AF2_TIM5}}},
-#else
-    /* GPIO1: */ {{}},
-    /* GPIO2: */ {{}},
-    /* GPIO3: */ {{}},
-#endif
 
     /* GPIO4: */ {{{ODrive::GPIO_MODE_UART_B, GPIO_AF7_USART2}, {ODrive::GPIO_MODE_PWM, GPIO_AF2_TIM5}}},
     /* GPIO5: */ {{}},
@@ -256,11 +202,8 @@ std::array<GpioFunction, 3> alternate_functions[GPIO_COUNT] = {
     /* CAN_D: */ {{{ODrive::GPIO_MODE_CAN_A, GPIO_AF9_CAN1}, {ODrive::GPIO_MODE_I2C_A, GPIO_AF4_I2C1}}},
 };
 
-#if HW_VERSION_MINOR <= 2
-PwmInput pwm0_input{&htim5, {0, 0, 0, 4}}; // 0 means not in use
-#else
+
 PwmInput pwm0_input{&htim5, {1, 2, 3, 4}};
-#endif
 
 extern USBD_HandleTypeDef hUsbDeviceFS;
 USBD_HandleTypeDef& usb_dev_handle = hUsbDeviceFS;
