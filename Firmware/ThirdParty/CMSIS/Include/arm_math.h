@@ -287,7 +287,7 @@
  * @defgroup groupExamples Examples
  */
 #ifndef _ARM_MATH_H
-#define _ARM_MATH_H
+#define _ARM_MATH_Hutils.hpp
 
 /* Compiler specific diagnostic adjustment */
 #if   defined ( __CC_ARM )

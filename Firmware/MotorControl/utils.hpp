@@ -9,11 +9,13 @@
 
 /**
  * @brief Flash size register address
+    指用于控制计算机系统中的Flash内存大小的寄存器地址
  */
 #define ID_FLASH_ADDRESS (0x1FFF7A22)
 
 /**
  * @brief Device ID register address
+    指用于计算机系统中的设备ID的寄存器地址
  */
 #define ID_DBGMCU_IDCODE (0xE0042000)
 
@@ -54,13 +56,13 @@
 #define STM_ID_GetFlashSize() (*(uint16_t *)(ID_FLASH_ADDRESS))
 
 #ifdef M_PI
-#undef M_PI
+#undef M_PI // 它的作用是取消预先定义的宏
 #endif
 
 // Math Constants
 constexpr float M_PI = 3.14159265358979323846f;
-constexpr float one_by_sqrt3 = 0.57735026919f;
-constexpr float two_by_sqrt3 = 1.15470053838f;
+constexpr float one_by_sqrt3 = 0.57735026919f; // 1/sqrt(3) 1除以根号3
+constexpr float two_by_sqrt3 = 1.15470053838f; // 2/sqrt(3) 2除以根号3
 constexpr float sqrt3_by_2 = 0.86602540378f;
 
 // Function prototypes for implementations in utils.cpp
@@ -71,6 +73,14 @@ uint32_t timeout_to_deadline(uint32_t timeout_ms);
 int is_in_the_future(uint32_t time_ms);
 uint32_t micros(void);
 void delay_us(uint32_t us);
+
+/*
+这段代码看起来像是在声明一个包含两个函数的C语言外部接口。这两个函数都接受一个float类型的参数，并返回一个float类型的结果。
+函数的名字是our_arm_sin_f32和our_arm_cos_f32，这可能意味着它们分别计算给定角度的正弦和余弦（这是许多数学库中的常见函数）。
+但是，关于函数的具体实现和行为，这个代码片段并没有提供任何信息。你需要查看这些函数的定义或实现，才能了解它们是如何工作的。
+此外，extern "C"这部分是为了确保在C++中调用这些函数时，使用C语言的链接规则。
+这是因为C++使用不同的名称修饰规则（Name Mangling）来允许函数重载，这可能会导致在C++中无法正确链接到这些函数。使用extern "C"可以避免这种情况。
+*/
 
 extern "C" {
 float our_arm_sin_f32(float x);
