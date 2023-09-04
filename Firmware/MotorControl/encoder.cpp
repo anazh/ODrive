@@ -388,7 +388,7 @@ bool Encoder::run_offset_calibration() {
     }
 
 
-    int32_t init_enc_val = shadow_count_;
+    int32_t init_enc_val = shadow_count_; // 记录校准前的位置
     uint32_t num_steps = 0;
     int64_t encvaluesum = 0;
 
@@ -423,9 +423,9 @@ bool Encoder::run_offset_calibration() {
     }
 
     // Check CPR
-    float elec_rad_per_enc = axis_->motor_.config_.pole_pairs * 2 * M_PI * (1.0f / (float)(config_.cpr));
-    float expected_encoder_delta = config_.calib_scan_distance / elec_rad_per_enc;
-    calib_scan_response_ = std::abs(shadow_count_ - init_enc_val);
+    float elec_rad_per_enc = axis_->motor_.config_.pole_pairs * 2 * M_PI * (1.0f / (float)(config_.cpr)); // 电气角度 = 极对数 * 2 * PI * （1 / 编码器的分辨率）~~ 1.05
+    float expected_encoder_delta = config_.calib_scan_distance / elec_rad_per_enc; // 这是通过将校准扫描距离（calib_scan_distance）除以elec_rad_per_enc得到的。 ~~ 142.86
+    calib_scan_response_ = std::abs(shadow_count_ - init_enc_val); // 前的编码器计数（shadow_count）和初始的编码器值（init_enc_val） // 大约145
     if (std::abs(calib_scan_response_ - expected_encoder_delta) / expected_encoder_delta > config_.calib_range) {
         set_error(ERROR_CPR_POLEPAIRS_MISMATCH);
         axis_->motor_.disarm();
