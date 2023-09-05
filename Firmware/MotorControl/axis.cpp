@@ -7,30 +7,31 @@
 #include "utils.hpp"
 #include "communication/interface_can.hpp"
 
-Axis::Axis(int axis_num,
-            uint16_t default_step_gpio_pin,
-            uint16_t default_dir_gpio_pin,
-            osPriority thread_priority,
-            Encoder& encoder,
-            SensorlessEstimator& sensorless_estimator,
-            Controller& controller,
-            Motor& motor,
-            TrapezoidalTrajectory& trap,
-            Endstop& min_endstop,
-            Endstop& max_endstop,
-            MechanicalBrake& mechanical_brake)
-    : axis_num_(axis_num),
-        default_step_gpio_pin_(default_step_gpio_pin),
-        default_dir_gpio_pin_(default_dir_gpio_pin),
-        thread_priority_(thread_priority),
-        encoder_(encoder),
-        sensorless_estimator_(sensorless_estimator),
-        controller_(controller),
-        motor_(motor),
-        trap_traj_(trap),
-        min_endstop_(min_endstop),
-        max_endstop_(max_endstop),
-        mechanical_brake_(mechanical_brake)
+// Axis 构造函数
+Axis::Axis(int axis_num, // 轴编号
+            uint16_t default_step_gpio_pin, // 默认步进GPIO引脚
+            uint16_t default_dir_gpio_pin, // 默认方向GPIO引脚
+            osPriority thread_priority, // 线程优先级
+            Encoder& encoder, // 编码器
+            SensorlessEstimator& sensorless_estimator, // 无传感器估计器
+            Controller& controller, // 控制器
+            Motor& motor, // 电机
+            TrapezoidalTrajectory& trap, // 梯形轨迹
+            Endstop& min_endstop, // 最小端点
+            Endstop& max_endstop, // 最大端点
+            MechanicalBrake& mechanical_brake) // 机械制动器
+    : axis_num_(axis_num), // axis_num_(axis_num)这一行的作用是将传入的axis_num参数的值赋给Axis对象的axis_num_成员变量。
+        default_step_gpio_pin_(default_step_gpio_pin), // 默认步进GPIO引脚
+        default_dir_gpio_pin_(default_dir_gpio_pin), // 默认方向GPIO引脚
+        thread_priority_(thread_priority), // 线程优先级
+        encoder_(encoder), // 编码器
+        sensorless_estimator_(sensorless_estimator), // 无传感器估计器
+        controller_(controller), // 控制器
+        motor_(motor), // 电机
+        trap_traj_(trap), // 梯形轨迹
+        min_endstop_(min_endstop), // 最小端点
+        max_endstop_(max_endstop), // 最大端点
+        mechanical_brake_(mechanical_brake) // 机械制动器
 {
     encoder_.axis_ = this;
     sensorless_estimator_.axis_ = this;
